@@ -27,3 +27,6 @@ def play(request):
 
         return render(request, 'core/play.html', {})
     return render(request, 'core/play.html', {})
+
+def game(request):
+    return render(request, 'core/game.html', {})
