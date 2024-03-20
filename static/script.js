@@ -23,6 +23,7 @@ if(playButton){
                 progress.style.width = `${Math.floor((i/cards.length) * 100)}%`
             })
         }
+        document.location.href = "/play"
     })
 }
 
@@ -30,5 +31,15 @@ const usernameInput = document.querySelector('input[type="text"]')
 if(usernameInput){
     usernameInput.addEventListener('focus', () => {
         document.querySelector('.form').classList.add('active')
+    })
+}
+
+const form = document.querySelector('.form')
+if(form){
+    form.addEventListener('submit', (e) => {
+        if(usernameInput.value.length < 3){
+            e.preventDefault()
+            document.querySelector('.form-error').innerHTML = "အသုံးမပြုနိုင်ပါသေးပါ"
+        }
     })
 }

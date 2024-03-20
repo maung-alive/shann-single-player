@@ -8,5 +8,7 @@ def play(request):
     if request.method == "POST":
         username = request.POST.get('username')
         request.session["username"] = username
-        return render(request, 'core/play.html', {})
+        return render(request, 'core/play.html', {
+            'error_message': "You're logged in as " + username
+        })
     return render(request, 'core/play.html', {})

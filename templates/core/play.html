@@ -7,6 +7,7 @@
     <form action="" class="form" method="POST">
         {% csrf_token %}
         <p class="heading">Pick an username for you</p>
+        <p class="form-error">{{ error_message }}</p>
         <input type="text" name="username" id="username" value="{{ request.session.username }}" />
 
         <button class="button">Start</button>
