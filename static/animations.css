@@ -1,0 +1,12 @@
+.wrinkles {
+    animation: wrinkles 0.25s infinite;
+}
+
+@keyframes wrinkles {
+    0% {
+        color: #fff;
+    }
+    100% {
+        color: #000;
+    }
+}
