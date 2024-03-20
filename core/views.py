@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from game.Player import Player
 from game.Computer import Computer
@@ -25,7 +25,7 @@ def play(request):
         print(json)
         request.session["game"] = json
 
-        return render(request, 'core/play.html', {})
+        return redirect('game')
     return render(request, 'core/play.html', {})
 
 def game(request):
