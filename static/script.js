@@ -3,17 +3,23 @@ const playButton = document.querySelector(".play-btn");
 
 playButton.addEventListener('click', () => {
     let text = document.querySelector('.welcome');
+    document.querySelector('.fire-gif').style.display = "block";
+    document.querySelector('.progress').style.display = "block";
     text.className += " wrinkles"
     playButton.innerHTML = "စောင့်ပါ"
+    playButton.style.backgroundColor = "inherit";
     let progress = document.querySelector(".progress-value");
     const images = [];
+    var dotCount = 0;
     for (let i = 0; i < cards.length; i++) {
         let temp = new Image()
         images.push(temp)
         temp.src = `static/images/cards/${cards[i]}`
         temp.addEventListener('load', () => {
-            document.querySelector('.progress-percent').innerHTML = `${Math.floor((i/cards.length) * 100)}%`;
-            progress.style.width = `${Math.floor((i/cards.length) * 100)}%`;
+            playButton.innerHTML = `စောင့်ပါ${".".repeat(dotCount)}`
+            dotCount > 3 ? dotCount=0 : dotCount++
+            document.querySelector('.progress-percent').innerHTML = `${Math.floor((i/cards.length) * 100)}%`
+            progress.style.width = `${Math.floor((i/cards.length) * 100)}%`
         })
     }
 })

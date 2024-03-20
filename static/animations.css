@@ -1,10 +1,31 @@
 .wrinkles {
-    animation: wrinkles 0.25s infinite;
+    animation: wrinkles 4s infinite;
 }
 
 @keyframes wrinkles {
     0% {
         color: #fff;
+    }
+    5% {
+        color: #000;
+    }
+    10% {
+        color: #fff;
+    }
+    15% {
+        color: #000;
+    }
+    20% {
+        color: #fff;
+    }
+    25% {
+        color: #000;
+    }
+    30% {
+        color: #fff;
+    }
+    35% {
+        color: #000;
     }
     100% {
         color: #000;

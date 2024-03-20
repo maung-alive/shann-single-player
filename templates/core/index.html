@@ -5,13 +5,20 @@
 
 <section class="screen">
     <div class="welcome-block">
+        <img src="{% static 'images/fire-flame.gif' %}" alt="Fire" class="fire-gif">
         <img src="{% static 'images/cards.png' %}" alt="Cards" class="card-png">
         <p class="welcome">ရှမ်းကိုးမီး</p>
+        <button class="play-btn">ကစားမယ်</button>
+        <div class="progress">
+            <span class="progress-percent">0%</span>
+            <div class="progress-value"></div>
+        </div>
+    </div>
+    <div class="share-icons">
+        <i class="fa-brands fa-facebook icon"></i>
+        <i class="fa-brands fa-twitter icon"></i>
+        <i class="fa-brands fa-github icon"></i>
     </div>
 </section>
-
-<div class="share-icons">
-    
-</div>
 
 {% endblock content %}
