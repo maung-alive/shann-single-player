@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="play-screen screen">
+    <img src="{% static 'images/cards.png' %}" alt="cards" class="cards-png" />
+    <img src="{% static 'images/cards.png' %}" alt="cards" class="cards-png-top" />
+    <form action="" class="form" method="POST">
+        <p class="heading">Pick an username for you</p>
+        <input type="text" name="username" id="username" />
+
+        <button class="button">Start</button>
+    </form>
+</section>
+
+{% endblock content %}
