@@ -5,7 +5,7 @@
 <section class="screen game-screen">
     <div class="table">
 
-        <button class="game-start" id="game-start">ယူမယ်</button>
+        <button class="game-btn" id="game-start">ယူမယ်</button>
         {% for player in game.players %}
             <div class="player {{player.name|cut:" "}}" style="{% if player.name == username %}top: 680px;left:50%;transform: translate(-50%, -100%);{% endif %}">
                 {% for card in player.cards %}
