@@ -16,17 +16,34 @@ def play(request):
         players = []
         player = Player(username)
         players.append(player)
-        for i in range(6):
+        for i in range(1, 5):
             computer = Computer("Computer " + str(i))
             players.append(computer)
         
         table = ShanTable(players, Deck())
         json = table.convert_json()
-        print(json)
         request.session["game"] = json
 
         return redirect('game')
     return render(request, 'core/play.html', {})
 
 def game(request):
-    return render(request, 'core/game.html', {})
+    username = request.session.get('username')
+    if not username:
+        redirect('play')
+    json = request.session["game"]
+    table = ShanTable(None, None)
+    table.insert_json(json)
+    table.start()
+    json = table.convert_json()
+    request.session["game"] = json
+    for player in json['players']:
+        if player['name'] != username:
+            for card in player['cards']:
+                card['img'] = "../back.png"
+    print(json)
+    
+    return render(request, 'core/game.html', {
+        'username': username,
+        "game": json
+    })

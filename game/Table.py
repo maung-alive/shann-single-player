@@ -1,5 +1,6 @@
 from .Card import Card
 from .Player import Player
+from .Deck import Deck
 
 class ShanTable:
     def __init__(self, players, deck):
@@ -56,6 +57,6 @@ class ShanTable:
     
     def insert_json(self, json):
         self.taken_players = [Player(player['name']) for player in json['taken_players']]
-        self.deck = [Card(card['value'], card['color']) for card in json['deck']]
+        self.deck = Deck([Card(card['value'], card['color']) for card in json['deck']])
         self.winners = [Player(winner['name']) for winner in json['winners']]
         self.players = [Player(player['name']) for player in json['players']]

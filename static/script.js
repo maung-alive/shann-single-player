@@ -43,3 +43,10 @@ if(form){
         }
     })
 }
+
+const gameStart = document.querySelector("#game-start")
+if(gameStart){
+    gameStart.addEventListener('click', () => {
+
+    })
+}

@@ -4,7 +4,10 @@ import random
 class Deck:
     colors = ['heart', 'diamonds', 'spades', 'clubs']
 
-    def __init__(self):
+    def __init__(self, cards=None):
+        if cards:
+            self.deck = cards
+            return
         self.deck = [Card(value, color) for value in range(1,14) for color in self.colors]
 
     def __len__(self):
