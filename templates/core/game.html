@@ -6,8 +6,9 @@
     <div class="table">
 
         <button class="game-btn" id="game-start">ယူမယ်</button>
+        <button class="game-btn" id="game-stop">တော်ပြီ</button>
         {% for player in game.players %}
-            <div class="player {{player.name|cut:" "}}" style="{% if player.name == username %}top: 680px;left:50%;transform: translate(-50%, -100%);{% endif %}">
+            <div class="player {{player.name|cut:" "}}" style="{% if player.name == username %}top: 680px;left:50%;transform: translate(-50%, -100%);{% endif %}" id="{{ player.name|cut:" " }}">
                 {% for card in player.cards %}
                     <img src="/static/images/cards/{{card.img}}" alt="card-back" class="card back">
                 {% endfor %}

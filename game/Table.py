@@ -11,18 +11,18 @@ class ShanTable:
 
     def start(self):
         self.deck.randomize()
-        for i in range(2):
-            for player in self.players:
-                card = self.deck.pop()
-                player.receive(card)
+        for player in self.players:
+            if len(player.cards) < 2:
+                player.receive(self.deck.pop())
+                player.receive(self.deck.pop())
 
     def take(self, player):
-        if player not in self.taken_players:
+        if len(player.cards) < 3:
             card = self.deck.pop()
             player.receive(card)
             self.taken_players.append(player)
             return card
-        return False
+        return None
 
     def shot(self):
         winner = self.players[0]

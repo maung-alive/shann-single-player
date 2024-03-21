@@ -45,8 +45,21 @@ if(form){
 }
 
 const gameStart = document.querySelector("#game-start")
+const gameStop = document.querySelector("#game-stop")
 if(gameStart){
     gameStart.addEventListener('click', () => {
+        fetch('/play/game/take', {})
+        .then(res => res.json())
+        .then(res => {
+            document.querySelector(`#${res.username}`).innerHTML += `<img src="/static/images/cards/${res.card.img}" alt="card-back" class="card back" style="left:80px;">`
+        })
+    })
 
+    gameStop.addEventListener('click', () => {
+        fetch('/play/game/winners', {})
+       .then(res => res.json())
+       .then(res => {
+            alert(res.img)
+       })
     })
 }
