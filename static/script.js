@@ -74,7 +74,7 @@ if(gameStart){
                 parentDiv.setAttribute("style", `${parentDiv.getAttribute('style')}-webkit-filter: drop-shadow(5px 5px 5px #222);`);
             })
             gameStop.innerHTML = "ပြန်စမယ်"
-            gameStop.onclick = () => document.location.href = '/'
+            gameStop.onclick = () => window.location.reload()
        })
     })
 }

@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
-from game.Player import Player
-from game.Computer import Computer
 from game.Table import ShanTable
-from game.Card import Card
+from .helper import generate_game
 
 # Create your views here.
 def home(request):
@@ -17,16 +15,7 @@ def play(request):
     if request.method == "POST":
         username = request.POST.get('username')
         request.session["username"] = username
-        players = []
-        player = Player(username)
-        players.append(player)
-        for i in range(1, 5):
-            computer = Computer("Computer " + str(i))
-            players.append(computer)
-
-        colors = ['heart', 'diamonds', 'spades', 'clubs']
-        table = ShanTable(players=players, deck=[Card(value, color) for value in range(1,14) for color in colors])
-        json = table.convert_json()
+        json = generate_game(username)
         request.session["game"] = json
 
         return redirect('game')
@@ -38,7 +27,13 @@ def game(request):
         redirect('play')
 
     if request.session.get("started") == True:
-        return redirect('home')
+        username = request.session["username"]
+        json = generate_game(username)
+        request.session["taked"] = False
+        request.session["started"] = False
+        request.session["game"] = json
+        return redirect('game')
+
     json = request.session["game"]
     table = ShanTable(None, None)
     table.insert_json(json)
@@ -101,7 +96,7 @@ def winners(request):
     table = ShanTable(None, None)
     table.insert_json(json)
     for user in table.players:
-        if user.total < 7:
+        if user.total < 7 and user.name != username:
             table.take(user)
     
     table.shot()
