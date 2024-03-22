@@ -59,7 +59,22 @@ if(gameStart){
         fetch('/play/game/winners', {})
        .then(res => res.json())
        .then(res => {
-            alert(res.img)
+            res.players.forEach(winner => {
+                let parentDiv = document.querySelector(`#${winner.name.split(" ").join("")}`)
+                parentDiv.style.opacity = 0.5
+                parentDiv.innerHTML = ""
+                winner.cards.forEach(card => {
+                    parentDiv.innerHTML += `<img src="/static/images/cards/${card.img}" alt="card" class="card back">`
+                })
+                parentDiv.innerHTML += `<span class="username">${winner.name}</span>`
+            })
+            res.winners.forEach(winner => {
+                let parentDiv = document.querySelector(`#${winner.name.split(" ").join("")}`)
+                parentDiv.style.opacity = 1
+                parentDiv.setAttribute("style", `${parentDiv.getAttribute('style')}-webkit-filter: drop-shadow(5px 5px 5px #222);`);
+            })
+            gameStop.innerHTML = "ပြန်စမယ်"
+            gameStop.onclick = () => document.location.href = '/'
        })
     })
 }

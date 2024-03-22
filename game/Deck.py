@@ -5,7 +5,7 @@ class Deck:
     colors = ['heart', 'diamonds', 'spades', 'clubs']
 
     def __init__(self, cards=None):
-        if cards:
+        if cards is not None:
             self.deck = cards
             return
         self.deck = [Card(value, color) for value in range(1,14) for color in self.colors]

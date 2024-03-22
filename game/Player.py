@@ -49,6 +49,8 @@ class Player:
         }
     
     def insert_json(self, json):
+        print(json)
+        pass
         self.name = json['name']
         self.cards = [Card(card['value'], card['color']) for card in json['cards']]
         self.total = json['total']

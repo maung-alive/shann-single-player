@@ -1,6 +1,7 @@
 from .Card import Card
 from .Player import Player
 from .Deck import Deck
+import random
 
 class ShanTable:
     def __init__(self, players, deck):
@@ -10,7 +11,7 @@ class ShanTable:
         self.winners = []
 
     def start(self):
-        self.deck.randomize()
+        random.shuffle(self.deck)
         for player in self.players:
             if len(player.cards) < 2:
                 player.receive(self.deck.pop())
@@ -25,6 +26,7 @@ class ShanTable:
         return None
 
     def shot(self):
+        self.winners = []
         winner = self.players[0]
 
         for player in self.players[1:]:
@@ -49,14 +51,22 @@ class ShanTable:
     
     def convert_json(self):
         return {
-            'taken_players': [player.convert_json() for player in self.taken_players],
-            'deck': self.deck.convert_json(),
+            'deck': [card.convert_json() for card in self.deck],
             'winners': [winner.convert_json() for winner in self.winners],
             'players': [player.convert_json() for player in self.players]
         }
     
     def insert_json(self, json):
-        self.taken_players = [Player(player['name']) for player in json['taken_players']]
-        self.deck = Deck([Card(card['value'], card['color']) for card in json['deck']])
-        self.winners = [Player(winner['name']) for winner in json['winners']]
-        self.players = [Player(player['name']) for player in json['players']]
+        self.deck = [Card(card['value'], card['color']) for card in json['deck']]
+
+        self.players = []
+        for p in json['players']:
+            player = Player(p['name'])
+            player.insert_json(p)
+            self.players.append(player)
+        
+        self.winners = []
+        for winner in json['winners']:
+            winner_player = Player(winner['name'])
+            winner_player.insert_json(winner)
+            self.winners.append(winner_player)

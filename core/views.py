@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from game.Player import Player
 from game.Computer import Computer
 from game.Table import ShanTable
-from game.Deck import Deck
+from game.Card import Card
 
 # Create your views here.
 def home(request):
@@ -23,8 +23,9 @@ def play(request):
         for i in range(1, 5):
             computer = Computer("Computer " + str(i))
             players.append(computer)
-        
-        table = ShanTable(players, Deck())
+
+        colors = ['heart', 'diamonds', 'spades', 'clubs']
+        table = ShanTable(players=players, deck=[Card(value, color) for value in range(1,14) for color in colors])
         json = table.convert_json()
         request.session["game"] = json
 
@@ -50,6 +51,7 @@ def game(request):
     
     request.session["game"] = json
     request.session["started"] = True
+    request.session["players"] = request.session["game"]["players"]
     return render(request, 'core/game.html', {
         'username': username,
         "game": json
@@ -68,6 +70,7 @@ def take(request):
         return JsonResponse({
             'status': "ERROR"
         })
+    
     table = ShanTable(None, None)
     table.insert_json(json)
     i=0
@@ -78,9 +81,35 @@ def take(request):
     card = table.take(table.players[i])
     json = table.convert_json()
     request.session['game'] = json
-    resp = card.convert_json()
-    request.session["taked"] = True
+    resp = {}
+    if card:
+        request.session["taked"] = True
+        resp = card.convert_json()
     return JsonResponse({
         'username': username,
         'card': resp
     })
+
+def winners(request):
+    json = request.session.get('game')
+    username = request.session.get('username')
+    if not json and username:
+        return JsonResponse({
+            'status': "ERROR"
+        })
+    
+    table = ShanTable(None, None)
+    table.insert_json(json)
+    for user in table.players:
+        if user.total < 7:
+            table.take(user)
+    
+    table.shot()
+    json = table.convert_json()
+    request.session['game'] = json
+    return JsonResponse({
+        'username': username,
+        'players': [player.convert_json() for player in table.players],
+        'winners': [winner.convert_json() for winner in table.winners]
+    })
+    
