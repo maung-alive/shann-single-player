@@ -3,8 +3,9 @@
 
 {% block content %}
 <section class="screen game-screen">
+    <img src="{% static 'images/cards.png' %}" alt="cards" class="cards-png" />
+    <img src="{% static 'images/cards.png' %}" alt="cards" class="cards-png-top" />
     <div class="table">
-
         <button class="game-btn" id="game-start">ယူမယ်</button>
         <button class="game-btn" id="game-stop">တော်ပြီ</button>
         {% for player in game.players %}

@@ -71,6 +71,7 @@ if(gameStart){
             res.winners.forEach(winner => {
                 let parentDiv = document.querySelector(`#${winner.name.split(" ").join("")}`)
                 parentDiv.style.opacity = 1
+                document.querySelector(`#${winner.name.split(" ").join("")}>.username`).innerHTML = `${winner.name} (win!)`
                 parentDiv.setAttribute("style", `${parentDiv.getAttribute('style')}-webkit-filter: drop-shadow(5px 5px 5px #222);`);
             })
             gameStop.innerHTML = "ပြန်စမယ်"
