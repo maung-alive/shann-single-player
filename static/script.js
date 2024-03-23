@@ -3,6 +3,7 @@ const playButton = document.querySelector(".play-btn");
 
 if(playButton){
     playButton.addEventListener('click', () => {
+        new Audio("/static/click.wav").play()
         let text = document.querySelector('.welcome');
         document.querySelector('.fire-gif').style.display = "block";
         document.querySelector('.progress').style.display = "block";
@@ -37,9 +38,10 @@ if(usernameInput){
 const form = document.querySelector('.form')
 if(form){
     form.addEventListener('submit', (e) => {
+        new Audio("/static/click.wav").play()
         if(usernameInput.value.length < 3){
             e.preventDefault()
-            document.querySelector('.form-error').innerHTML = "အသုံးမပြုနိုင်ပါသေးပါ"
+            document.querySelector('.form-error').innerHTML = "username သည် သုံးလုံးအထက်ဖြစ်ရပါမည်။"
         }
     })
 }
