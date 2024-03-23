@@ -47,7 +47,6 @@ def game(request):
     
     request.session["game"] = json
     request.session["started"] = True
-    request.session["players"] = request.session["game"]["players"]
     return render(request, 'core/game.html', {
         'username': username,
         "game": json
