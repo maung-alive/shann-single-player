@@ -24,7 +24,7 @@ class Player:
     def __add_cards(self):
         i = 0
         for card in self.cards:
-            if card.value in [10, 11, 12, 13]:
+            if card.value in [11, 12, 13]:
                 i += 0
             else:
                 i += card.value
