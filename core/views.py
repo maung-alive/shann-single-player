@@ -29,8 +29,9 @@ def game(request):
     if request.session.get("started") == True:
         username = request.session["username"]
         json = generate_game(username)
-        request.session["taked"] = False
-        request.session["started"] = False
+        for key in request.session.keys():
+            request.session[key] = None
+        request.session["username"] = username
         request.session["game"] = json
         return redirect('game')
 
